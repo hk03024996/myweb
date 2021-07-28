@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="col-sm-7">
+           <div class="new-list">
+               {% for live in lives %}
+               <div class="new-list-item clearfix">
+
+                <div class="col-sm-4">
+                     <dt>
+                            <a href="{% url 'live_detail' live.pk %}">
+                     <img width="220" height="120" class="scrollLoading" img src="/media/{{ live.image }}
+            "/>
+                            </a>
+                     </dt>
+                        </div>
+
+                  <div class="col-xs-5">
+                      <h3><a href="{% url 'live_detail' live.pk %}"} class="title">{{ live.title}}</a></h3>
+                       <div class="infor">
+                          <span>文章作者：{{ live.author }}</span>.
+                          <span>创建时间：{{ live.click_nums }}</span>
+                           <li>阅读次数({{ live.readed_num }})</li>
+                      </div>
+                      <p>{{ live.content|truncatechars:50 }}</p>
+
+                  </div> 
+               </div>
+               {% endfor %}
+
+           </div>
+            <div>
+                <ul class="pagination">
+                                <li>
+
+                                    {% if page_of_blogs.has_previous %}
+                                    <a href="?page={{ page_of_blogs.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    {% else %}
+                                    <span aria-hidden="true">&laquo;</span>
+                                    {% endif %}
+                                </li>
+
+                                {% for page_num in page_range %}
+                                {% if page_num == page_of_blogs.number %}
+                                <li class="active"><span>{{ page_num }}</span></li>
+                                {% else %}
+                                {% if page_num == '...' %}
+                                <li><span>{{ page_num }}</span></li>
+                                {% else %}
+                                <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                {% endif %}
+
+                                {% endif %}
+
+                                {% endfor %}
+
+                                <li>
+                                    {% if page_of_blogs.has_next %}
+                                    <a href="?page={{ page_of_blogs.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    {% else %}
+                                    <span aria-hidden="true">&raquo;</span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+            </div>
+        </div>
+        <div class="col-sm-3">
+           <div class="search-bar">
+
+           </div>
+           <div class="side-bar-card flag clearfix">
+             <div class="col-xs-9">
+               <div class="text-lg">无善无恶心之体</div>
+                 <div class="text-lg">有善有恶意之动</div>
+                 <div class="text-lg">知善知恶是良知</div>
+                 <div class="text-lg">为善去恶是格物</div>
+             </div>
+           </div>
+           <div class="side-bar-card">
+             <div class="card-title">24小时热文</div>
+             <div class="card-body">
+               <div class="list">
+                 
+                 
+                 <div class="item">
+                     {% for live in hot_lives %}
+                   <li><a href="{% url 'live_detail' live.pk %}   " class="title">{{ live.title}}</a></li>
+                     {% endfor %}
+                 </div>
+                
+                 
+               </div>
+             </div>
+           </div>
+        </div>
+{% endblock %}

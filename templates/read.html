@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="col-sm-7">
+           <div class="new-list">
+               {% for live in lives %}
+               <div class="new-list-item clearfix">
+                <div class="col-xs-5">
+                   <a href="{% url 'live_detail' live.pk %}">
+                       <img width="220" height="120" class="scrollLoading" />
+                   </a>
+                </div>
+                  <div class="col-xs-7">
+                      <h3><a href="{% url 'live_detail' live.pk %}   " class="title">{{ live.title}}</a></h3>
+                      <p>{{ live.content|truncatechars:50 }}</p>
+                      <div class="infor">
+                          <span>文章作者：{{ live.author }}</span>.
+                          <span>创建时间：{{ live.click_nums }}</span>
+                      </div>
+                  </div> 
+               </div>
+               {% endfor %}
+
+           </div>
+        </div>
+        <div class="col-sm-3">
+           <div class="search-bar">
+            <input type="search" class="form-control" placeholder="搜一下">             
+           </div>
+           <div class="side-bar-card flag clearfix">
+             <div class="col-xs-5">
+               <img src="img/01.jpg">
+             </div>
+             <div class="col-xs-7">
+               <div class="text-lg">有害信息举报专区</div>
+               <div>举报电话：12377</div>
+             </div>
+           </div>
+           <div class="side-bar-card">
+             <div class="card-title">24小时热文</div>
+             <div class="card-body">
+               <div class="list">
+                 
+                 
+                 <div class="item">
+                   <div class="title">美军方报告污蔑中国“破坏国际体系”外交部回应</div>
+                   <div class="desc">15k阅读 1k评论</div>
+                 </div>
+                
+                 
+               </div>
+             </div>
+           </div>
+        </div>
+{% endblock %}

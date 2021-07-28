@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=no">
+    <title>{% block title %}魁的主页{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css'%}">
+    <script type="text/javascript" src="{% static 'javascript/jquery 1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+</head>
+<body class="background-image">
+    <div class="navbar navbar-default">
+        <div class="container">
+    <div class="navbar-header">
+
+
+    </div>
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'home'%}">首页</a></li>
+            {% for live_type in live_types %}
+                <li><a href="{% url 'live_with_type' live_type.pk %}">{{ live_type.type_name }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'login' %}?from={{ request.get_full_path }}">登录</a></li>
+            <li><a href="{% url 'register' %}?from={{ request.get_full_path }}">注册</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <div class="col-sm-2">
+           <div class="list-group side-bar">
+               <a href="http://www.guitarchina.com/" class="list-group-item">吉他</a>
+               <a href="https://docs.djangoproject.com/en/3.0/" class="list-group-item">Django</a>
+           </div>
+        </div>
+            {% block content %}
+
+            {% endblock %}
+    </div>
+    </div>
+    <div class="footer">
+      魁哥的个人博客
+    </div>
+    {% block script_extends %}{% endblock %}
+</body>
+</html>
